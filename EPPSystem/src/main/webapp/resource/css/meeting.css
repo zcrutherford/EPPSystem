@@ -1,0 +1,13 @@
+html,body{
+	font-family: Microsoft Yahei;
+	font-size : 10pt;
+}
+table{border-collapse:collapse;border-spacing:0;border-left:1px solid #EAE6D8;border-top:1px solid #EAE6D8;background:#FFF7E0;}
+th,td{border-right:1px solid #EAE6D8;border-bottom:1px solid #EAE6D8;padding:3px 5px;background:#FFFFFF;}
+th{font-weight:bold;background:#FFF7E0;}
+.table11 td{
+	text-align:center;
+}
+.table11 th{
+	text-align:center;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list id="beanList">
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+					<property name="objectMapper">
+						<bean class="org.codehaus.jackson.map.ObjectMapper"></bean>
+					</property>
+				</bean>
+			</util:list>
+		</property>
+		<property name="webBindingInitializer">
+			<bean
+				class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="conversionService">
+					<bean id="conversionService"
+						class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- <mvc:interceptors>  
+ 		<mvc:interceptor>
+ 			<mvc:mapping path="/platForm/*"/>
+ 			<bean class="com.channelsoft.record.qa.controller.LoginInterceptor"></bean> 
+ 		</mvc:interceptor>
+    </mvc:interceptors>  -->
+</beans>
