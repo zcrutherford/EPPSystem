@@ -8,11 +8,16 @@ $(document).ready(function() {
 			"url" : contextPath + "/advice/getAdvice.do",
 			"type" : "POST",
 			"data" : function(d) {
-				d.msId = $("#msId").val();
-				d.mtId = $("#mtId").val();
-				d.assignedStatus = $("#assignedStatus").val();
-				d.daId=$("#daId").val();
-				d.daSubject=$("#daSubject").val();
+				d.msId = $("#msId").val();//界
+				d.mtId = $("#mtId").val();//次
+				d.msType = $("#msType").val();//会议类型
+				if($("#assignedStatus").val() == 2) {
+					d.assignedStatus = $("#assignedStatus2").val();//状态
+				} else {
+					d.assignedStatus = $("#assignedStatus").val();//状态
+				}
+				d.daSubject=$("#daSubject").val();//题目
+				d.hostUnit=$("#hostUnit").val();//主办单位
 			}
 		},
 		"scrollX" : "",
@@ -58,20 +63,28 @@ $(document).ready(function() {
 			"sWidth" : "200"
 		}, {
 			"bVisible" : true,
+			"mData" : "daDeputation",
+			"sWidth" : "200"
+		}, {
+			"bVisible" : true,
+			"mData" : "hostUnit",
+			"sWidth" : "200"
+		}, {
+			"bVisible" : true,
 			"mData" : "assignedStatus",
 			"render" : function(data, type, full, meta) {
-				if(data == 1) {
+				if(data == 0) {
+					return "办理中";
+				} else if(data == 1){
 					return "已办结";
 				} else if(data == 2){
-					return "办理中";
+					return "续办";
 				} else if(data == 3){
-					return "无法办理";
+					return "续办-1年";
 				} else if(data == 4){
-					return "已开工-1年内";
-				} else if(data == 5){
-					return "1-2年";
-				} else if(data == "0") {
-					return "未办理";
+					return "续办-2年";
+				} else if(data == 5) {
+					return "续办-3年";
 				} else {
 					return "未知状态";
 				}
@@ -97,6 +110,16 @@ function queryAdviceByCondition() {
 function reset() {
 	$("#mtId option:eq('')").attr("selected","selected");
 	$("#assignedStatus option:eq('')").attr("selected","selected");
+	$("#hostUnit option:eq('')").attr("selected","selected");
 	$("#daId").val("");
 	$("#daSubject").val("");
+}
+function changeStatus(value) {
+	if(value == 0) {
+		$("#assignedStatus2").hide();
+	} else if(value == 1) {
+		$("#assignedStatus2").hide();
+	} else if(value == 2) {
+		$("#assignedStatus2").show();
+	}
 }

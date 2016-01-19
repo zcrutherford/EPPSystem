@@ -60,6 +60,10 @@ public interface AdviceMapper {
 				//题目
 				sb.append(" AND DA_SUBJECT LIKE '%"+ advice.getDaSubject() +"%'");
 			}
+			if(StringUtils.isNotBlank(advice.getMsType())) {
+				//题目
+				sb.append(" AND MS_TYPE=#{advice.msType}");
+			}
 			if(StringUtils.isNotBlank(advice.getAssignedStatus())) {
 				//状态
 				sb.append(" AND ASSIGNED_STATUS=#{advice.assignedStatus}");
@@ -67,6 +71,10 @@ public interface AdviceMapper {
 			if(StringUtils.isNotBlank(advice.getDaId())) {
 				//建议编号
 				sb.append(" AND DA_ID=#{advice.daId}");
+			}
+			if(StringUtils.isNotBlank(advice.getHostUnit())) {
+				//建议编号
+				sb.append(" AND HOST_UNIT=#{advice.hostUnit}");
 			}
 			sb.append(" LIMIT " + displayStart + "," + displayLength);
 			return sb.toString();
@@ -88,6 +96,10 @@ public interface AdviceMapper {
 				//题目
 				sb.append(" AND DA_SUBJECT LIKE '%"+ advice.getDaSubject() +"%'");
 			}
+			if(StringUtils.isNotBlank(advice.getMsType())) {
+				//题目
+				sb.append(" AND MS_TYPE=#{advice.msType}");
+			}
 			if(StringUtils.isNotBlank(advice.getAssignedStatus())) {
 				//状态
 				sb.append(" AND ASSIGNED_STATUS=#{advice.assignedStatus}");
@@ -95,6 +107,10 @@ public interface AdviceMapper {
 			if(StringUtils.isNotBlank(advice.getDaId())) {
 				//建议编号
 				sb.append(" AND DA_ID=#{advice.daId}");
+			}
+			if(StringUtils.isNotBlank(advice.getHostUnit())) {
+				//建议编号
+				sb.append(" AND HOST_UNIT=#{advice.hostUnit}");
 			}
 			return sb.toString();
 		}

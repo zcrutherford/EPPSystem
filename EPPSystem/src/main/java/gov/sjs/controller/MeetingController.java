@@ -20,11 +20,12 @@ public class MeetingController {
 	private IMeetingService imeetingService;
 	
 	@RequestMapping("/gotoMeeting.do")
-	public String gotoMeetingPage(String ms,HttpServletRequest request) {
+	public String gotoMeetingPage(String ms,String mstype,HttpServletRequest request) {
 		
 		List<Meeting> list = imeetingService.getmtByCondition(ms);
 		request.setAttribute("mtlist", list);
 		request.setAttribute("ms", ms);
+		request.setAttribute("mstype", mstype);
 		return "meeting";
 	}
 	

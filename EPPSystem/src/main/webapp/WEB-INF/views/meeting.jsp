@@ -35,6 +35,7 @@
  						</c:forEach>
 					</select>
 					<input id="msId" type="text" style="display:none;" value="${ms}" />
+					<input id="msId" type="text" style="display:none;" value="${mstype}" />
 				</td>
 				<td width="150px">题目</td>
 				<td width="500px" style="text-align:left;">
@@ -42,21 +43,28 @@
 				</td>
 			</tr>
 			<tr height="20px">
-			<td>状态</td>
+				<td>状态</td>
 				<td style="text-align:left;">
-					<select id="assignedStatus" style="width:125px">
+					<select id="assignedStatus" style="width:125px" onchange="changeStatus(this.value)">
 						<option value ="">请选择</option>
-						<option value="0">未办理</option>
+						<option value="0">办理中</option>
  						<option value ="1">已办结</option>
-  						<option value ="2">办理中</option>
-  						<option value ="3">无法办理</option>
-  						<option value ="4">已开工-1年内</option>
-  						<option value ="5">1-2年</option>
+  						<option value ="2">续办</option>
+					</select>
+					<select id="assignedStatus2" style="width:125px;display:none;">
+						<option value="3">1年</option>
+						<option value="4">2年</option>
+						<option value="5">3年</option>
 					</select>
 				</td>
-				<td width="150px">建议编号</td>
-				<td width="500px" style="text-align:left;">
-					<input id="daId" type="text" style="width:150px" />
+				<td width="150px">主办单位</td>
+				<td style="text-align:left;">
+					<select id="hostUnit" style="width:125px">
+						<option value="">请选择</option>
+						<option value="建委">建委</option>
+						<option value="管委">管委</option>
+						<option value="其他">其他</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -75,6 +83,8 @@
 					<th>题目</th>
 					<th>领衔代表</th>
 					<th>附议代表</th>
+					<th>建议代表团</th>
+					<th>主办单位</th>
 					<th>交办状态</th>
 					<th>操作</th>
 				</tr>

@@ -23,22 +23,6 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping("/getmenu.do")
 	public String getAllMenu() {
-		/*List<Menu> list = new ArrayList<Menu>();
-		for(int i = 1; i < 10;i++) {
-			Menu menu = new Menu();
-			menu.setName("menu"+i);
-			menu.setId(i + "");
-			menu.setParent("0");
-			menu.setUrl("url" + i);
-			list.add(menu);
-		}
-		int j = 0;
-		for(Menu menu:list) {
-			if(j%3 == 0) {
-				menu.setParent("1");
-			}
-			j++;
-		}*/
 		List<Menu> list = menuService.getAllMenu();
 		String result = JSON.toJSONString(list);
 		System.out.println(result);

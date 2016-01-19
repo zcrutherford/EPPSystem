@@ -2,16 +2,16 @@ package gov.sjs.po;
 
 public class Advice {
 
-	private String daId;// 建议ID
+	private String daId;// 建议ID-展现
 	private String msId;// 届ID
 	private String mtId;// 次ID
 	private String msType;// 会议类型
-	private String daSubject;// 题目
-	private String ledDeputy;// 领衔代表
-	private String daDeputy;// 建议代表
-	private String assignedStatus;// 交办状态
-	private String hostUnit;// 主办单位
-	private String daDeputation;// 建议代表团
+	private String daSubject;// 题目-展现
+	private String ledDeputy;// 领衔代表-展现
+	private String daDeputy;// 建议代表-展现
+	private String assignedStatus;// 交办状态-展现
+	private String hostUnit;// 主办单位-展现
+	private String daDeputation;// 建议代表团-展现
 	private String daContent;// 建议内容
 	private String assignedReport;// 办理报告
 
