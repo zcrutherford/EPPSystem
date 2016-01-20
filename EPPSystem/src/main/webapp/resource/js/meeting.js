@@ -113,6 +113,7 @@ function reset() {
 	$("#hostUnit option:eq('')").attr("selected","selected");
 	$("#daId").val("");
 	$("#daSubject").val("");
+	$("#assignedStatus2").hide();
 }
 function changeStatus(value) {
 	if(value == 0) {

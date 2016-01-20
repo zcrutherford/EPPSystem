@@ -1,6 +1,6 @@
 package gov.sjs.po;
 
-public class Meeting {
+public class MeetingTimes {
 
 	private String mtId;
 	private String msId;

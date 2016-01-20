@@ -38,7 +38,7 @@ public interface AdviceMapper {
 	@Insert("INSERT INTO deputy_advise_info(MS_ID,MT_ID,MS_TYPE,DA_SUBJECT,"
 			+ "LED_DEPUTY,DA_DEPUTY,ASSIGNED_STATUS,HOST_UNIT,DA_DEPUTATION,DA_CONTENT,ASSIGNED_REPORT) "
 			+ "VALUES(#{advice.msId},#{advice.mtId},#{advice.msType},#{advice.daSubject},#{advice.ledDeputy}"
-			+ ",#{advice.daDeputy},0,#{advice.hostUnit},#{advice.daDeputation},#{advice.daContent},#{advice.assignedReport})")
+			+ ",#{advice.daDeputy},#{advice.assignedStatus},#{advice.hostUnit},#{advice.daDeputation},#{advice.daContent},'')")
 	public int addAdvice(@Param("advice")Advice advice);
 	
 	class AdviceProvider {

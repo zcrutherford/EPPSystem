@@ -35,7 +35,7 @@
  						</c:forEach>
 					</select>
 					<input id="msId" type="text" style="display:none;" value="${ms}" />
-					<input id="msId" type="text" style="display:none;" value="${mstype}" />
+					<input id="msType" type="text" style="display:none;" value="${mstype}" />
 				</td>
 				<td width="150px">题目</td>
 				<td width="500px" style="text-align:left;">
@@ -59,7 +59,7 @@
 				</td>
 				<td width="150px">主办单位</td>
 				<td style="text-align:left;">
-					<select id="hostUnit" style="width:125px">
+					<select id="hostUnit" style="width:150px">
 						<option value="">请选择</option>
 						<option value="建委">建委</option>
 						<option value="管委">管委</option>

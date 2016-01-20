@@ -1,6 +1,6 @@
 package gov.sjs.controller;
 
-import gov.sjs.po.Meeting;
+import gov.sjs.po.MeetingTimes;
 import gov.sjs.service.IMeetingService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class MeetingController {
 	@RequestMapping("/gotoMeeting.do")
 	public String gotoMeetingPage(String ms,String mstype,HttpServletRequest request) {
 		
-		List<Meeting> list = imeetingService.getmtByCondition(ms);
+		List<MeetingTimes> list = imeetingService.getmtByCondition(ms);
 		request.setAttribute("mtlist", list);
 		request.setAttribute("ms", ms);
 		request.setAttribute("mstype", mstype);
@@ -31,8 +31,8 @@ public class MeetingController {
 	
 	@ResponseBody
 	@RequestMapping("/getMtByCondition.do")
-	public List<Meeting> getMtByCondition(String ms) {
-		List<Meeting> list = imeetingService.getmtByCondition(ms);
+	public List<MeetingTimes> getMtByCondition(String ms) {
+		List<MeetingTimes> list = imeetingService.getmtByCondition(ms);
 		return list;
 	}
 	

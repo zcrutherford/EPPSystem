@@ -1,7 +1,7 @@
 package gov.sjs.mapper;
 
-import gov.sjs.po.Meeting;
 import gov.sjs.po.MeetingSession;
+import gov.sjs.po.MeetingTimes;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public interface MeetingMapper {
 			@Result(property = "meetingName", column = "MEETING_NAME", javaType = String.class, jdbcType = JdbcType.VARCHAR),
 			@Result(property = "meetingContent", column = "MEETING_CONTENT", javaType = String.class, jdbcType = JdbcType.VARCHAR),
 				})
-	public List<Meeting> getmtByCondition(@Param("ms")String ms);
+	public List<MeetingTimes> getmtByCondition(@Param("ms")String ms);
 	
 	@Select("SELECT * FROM meeting_session")
 	@Results(value = {

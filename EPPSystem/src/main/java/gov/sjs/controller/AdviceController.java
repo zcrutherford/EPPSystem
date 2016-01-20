@@ -40,7 +40,6 @@ public class AdviceController {
 	@ResponseBody
 	@RequestMapping("/addAdvice.do")
 	public String addAdvice(Advice advice) {
-		advice.setMsType("type1");
 		iadviceService.addAdvice(advice);
 		return "success";
 	}
