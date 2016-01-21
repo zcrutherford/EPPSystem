@@ -10,16 +10,57 @@
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 	$(document).ready(function(){
+		fillMs();
+		fillText();
+	});
+	function fillMs() {
 		$.ajax({
 			type : "post",
-			url : contextPath + "/advice/gotoNewAdvicePage.do",
+			url : contextPath + "/meeting/getMs.do",
+			dataType : "json",
+			success : function(result) {
+				$("#msId").append("<option value="+result.msId+">"+result.sessionName+"</option>");
+			}
+		});
+	}
+	function fillMt() {
+		$.ajax({
+			type : "post",
+			url : contextPath + "/meeting/getMtByCondition.do",
+			data : {ms:$("#ms").val()},
+			dataType : "json",
+			success : function(result) {
+				$("#mtId").append("<option value="+result.mtId+">"+result.meetingName+"</option>");
+			}
+		});
+	}
+	function fillText() {
+		$.ajax({
+			type : "post",
+			url : contextPath + "/advice/getAdviceByCondition.do",
 			data : {daId:$("#daId").val()},
 			dataType : "json",
 			success : function(result) {
 				$("#daSubject").val(result.daSubject);
+				if(result.assignedStatus == "3" || result.assignedStatus == "4" || result.assignedStatus == "5") {
+					$("#assignedStatus option[value=2]").attr("selected","selected");
+					$("#assignedStatus2").show();
+					$("#assignedStatus2 option[value="+ result.assignedStatus +"]").attr("selected","selected");
+				} else {
+					$("#assignedStatus option[value="+ result.assignedStatus +"]").attr("selected","selected");
+				}
+				$("#msId option[value="+ result.msId +"]").attr("selected","selected");
+				$("#mtId option[value="+ result.mtId +"]").attr("selected","selected");
+				$("#msType option[value="+ result.msType +"]").attr("selected","selected");
+				$("#ledDeputy").val(result.ledDeputy);
+				$("#daDeputy").val(result.daDeputy);
+				$("#hostUnit option[value="+ result.hostUnit +"]").attr("selected","selected");
+				$("#daDeputation").val(result.daDeputation);
+				$("#daContent").val(result.daContent);
+				$("#assignedReport").val(result.assignedReport);
 			}
 		});
-	});
+	}
 	function changeStatus(value) {
 		if(value == 0) {
 			$("#assignedStatus2").hide();
@@ -33,6 +74,7 @@
 </head>
 <body>
 <input id="daId" style="display:none;" value="${daId }"/>
+<input id="ms" style="display:none;" value="${ms }"/>
 <table class="table11" style="width:1170px">
 	<tr height="20px">
 		<th colspan="4">建议管理</th>

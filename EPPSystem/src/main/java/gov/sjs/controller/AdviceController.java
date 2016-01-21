@@ -56,8 +56,9 @@ public class AdviceController {
 	}
 	
 	@RequestMapping("/gotoAdviceManagePage.do")
-	public String gotoAdviceManagePage(String daId,HttpServletRequest request) {
+	public String gotoAdviceManagePage(String daId,String ms,HttpServletRequest request) {
 		request.setAttribute("daId", daId);
+		request.setAttribute("ms", ms);
 		return "adviceManage";
 	}
 }
