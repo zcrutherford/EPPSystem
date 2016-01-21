@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,31 +11,46 @@
 	var contextPath = "${pageContext.request.contextPath}";
 	$(document).ready(function(){
 		$("#assignedStatus2").hide();
+		$.ajax({
+			type : "post",
+			url : contextPath + "/meeting/getMs.do",
+			dataType : "json",
+			success : function(result) {
+				for(var i=0;i<result.length;i++) {
+					$("#msId").append("<option value='"+ result[i].msId +"'>" + result[i].sessionName + "</option>");
+				}
+			}
+		});
 		$("#msId").change(function(){
 			createMtOption();
 		});
 	});
 	function createMtOption() {
-		$.ajax({
-			type:"post",
-			url:contextPath+"/meeting/getMtByCondition.do",
-			data:{ms:$("#msId").val()},
-			success:function(result){
-				$("#mtId").html("");
-				$("#mtId").append("<option value=''>请选择</option>");
-				var list = eval(result);
-				for(var i=0;i<list.length;i++) {
-					$("#mtId").append("<option value='"+ list[i].mtId +"'>" + list[i].meetingName + "</option>");
+		if($("#msId").val == "noSelected") {
+			$("#mtId").html("");
+			$("#mtId").append("<option value=''>请选择</option>");
+		} else {
+			$.ajax({
+				type:"post",
+				url:contextPath+"/meeting/getMtByCondition.do",
+				data:{ms:$("#msId").val()},
+				dataType:"json",
+				success:function(result){
+					$("#mtId").html("");
+					$("#mtId").append("<option value=''>请选择</option>");
+					for(var i=0;i<result.length;i++) {
+						$("#mtId").append("<option value='"+ result[i].mtId +"'>" + result[i].meetingName + "</option>");
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	function addAdvice() {
 		if($("#daSubject").val() == "") {
 			alert("题目不能为空!");
 			return;
 		}
-		if($("#msId").val() == "") {
+		if($("#msId").val() == "noSelected") {
 			alert("界次不能为空!");
 			return;
 		}
@@ -55,7 +69,7 @@
 		
 		var assignedStatus = $("#assignedStatus").val();
 		if(assignedStatus == 2) {
-			assignedStatus = $("#assignedStatus2").val()
+			assignedStatus = $("#assignedStatus2").val();
 		}
 		$.ajax({
 			type:"post",
@@ -112,10 +126,7 @@
 				<td>归属界次</td>
 				<td style="text-align:left;">
 					<select id="msId">
-						<option value="">请选择</option>
-						<c:forEach items="${mslist }" var="temp">
-							<option value="${temp.msId }">${temp.sessionName }</option>
-						</c:forEach>
+						<option value="noSelected">请选择</option>
 					</select>
 					<select id="mtId">
 						<option value="">请选择</option>

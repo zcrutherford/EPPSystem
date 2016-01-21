@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
@@ -22,10 +20,8 @@ public class MenuController {
 	
 	@ResponseBody
 	@RequestMapping("/getmenu.do")
-	public String getAllMenu() {
+	public List<Menu> getAllMenu() {
 		List<Menu> list = menuService.getAllMenu();
-		String result = JSON.toJSONString(list);
-		System.out.println(result);
-		return result;
+		return list;
 	}
 }

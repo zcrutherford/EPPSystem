@@ -24,10 +24,9 @@ $(document).ready(function(){
 	$.ajax({
 		type : "post",
 		url : contextPath + "/menu/getmenu.do",
+		dataType : "json",
 		success : function(result) {
-			nodes = eval(result);
-
-			zTree = $.fn.zTree.init($("#navigation"), setting, nodes);
+			zTree = $.fn.zTree.init($("#navigation"), setting, result);
 		}
 	});
 });

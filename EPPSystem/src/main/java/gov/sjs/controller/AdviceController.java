@@ -2,9 +2,7 @@ package gov.sjs.controller;
 
 import gov.sjs.po.Advice;
 import gov.sjs.po.DataTablePo;
-import gov.sjs.po.MeetingSession;
 import gov.sjs.service.IAdviceService;
-import gov.sjs.service.IMeetingService;
 
 import java.util.List;
 
@@ -22,9 +20,6 @@ public class AdviceController {
 	@Autowired
 	private IAdviceService iadviceService;
 	
-	@Autowired
-	private IMeetingService imeetingService;
-	
 	@ResponseBody
 	@RequestMapping("/getAdvice.do")
 	public DataTablePo getAdviceByCondition(Advice advice,HttpServletRequest request) {
@@ -38,6 +33,17 @@ public class AdviceController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/getAdviceByCondition.do")
+	public Advice getAdviceByCondition(Advice advice) {
+		List<Advice> list = iadviceService.getAdviceByCondition(advice,"0","1");
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping("/addAdvice.do")
 	public String addAdvice(Advice advice) {
 		iadviceService.addAdvice(advice);
@@ -46,8 +52,12 @@ public class AdviceController {
 	
 	@RequestMapping("/gotoNewAdvicePage.do")
 	public String gotoNewAdvicePage(HttpServletRequest request) {
-		List<MeetingSession> list = imeetingService.getMeetingSession();
-		request.setAttribute("mslist", list);
 		return "newAdvice";
+	}
+	
+	@RequestMapping("/gotoAdviceManagePage.do")
+	public String gotoAdviceManagePage(String daId,HttpServletRequest request) {
+		request.setAttribute("daId", daId);
+		return "adviceManage";
 	}
 }

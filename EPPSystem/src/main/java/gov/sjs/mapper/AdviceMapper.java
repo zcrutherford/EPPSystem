@@ -61,7 +61,7 @@ public interface AdviceMapper {
 				sb.append(" AND DA_SUBJECT LIKE '%"+ advice.getDaSubject() +"%'");
 			}
 			if(StringUtils.isNotBlank(advice.getMsType())) {
-				//题目
+				//会议类型
 				sb.append(" AND MS_TYPE=#{advice.msType}");
 			}
 			if(StringUtils.isNotBlank(advice.getAssignedStatus())) {
@@ -73,7 +73,7 @@ public interface AdviceMapper {
 				sb.append(" AND DA_ID=#{advice.daId}");
 			}
 			if(StringUtils.isNotBlank(advice.getHostUnit())) {
-				//建议编号
+				//主办单位
 				sb.append(" AND HOST_UNIT=#{advice.hostUnit}");
 			}
 			sb.append(" LIMIT " + displayStart + "," + displayLength);
@@ -97,7 +97,7 @@ public interface AdviceMapper {
 				sb.append(" AND DA_SUBJECT LIKE '%"+ advice.getDaSubject() +"%'");
 			}
 			if(StringUtils.isNotBlank(advice.getMsType())) {
-				//题目
+				//会议类型
 				sb.append(" AND MS_TYPE=#{advice.msType}");
 			}
 			if(StringUtils.isNotBlank(advice.getAssignedStatus())) {
@@ -109,7 +109,7 @@ public interface AdviceMapper {
 				sb.append(" AND DA_ID=#{advice.daId}");
 			}
 			if(StringUtils.isNotBlank(advice.getHostUnit())) {
-				//建议编号
+				//主办单位
 				sb.append(" AND HOST_UNIT=#{advice.hostUnit}");
 			}
 			return sb.toString();

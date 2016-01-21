@@ -50,7 +50,7 @@ $(document).ready(function() {
 			"bVisible" : true,
 			"mData" : "daSubject",
 			"render" : function(data, type, full, meta) {
-				return "<a href='#'>" + data;
+				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"'>" + data;
 			},
 			"sWidth" : "300"
 		}, {
