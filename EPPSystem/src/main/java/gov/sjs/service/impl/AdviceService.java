@@ -25,5 +25,13 @@ public class AdviceService implements IAdviceService {
 	public void addAdvice(Advice advice) {
 		adviceMapper.addAdvice(advice);
 	}
+	
+	public void updateAdvice(Advice advice) {
+		adviceMapper.updateAdvice(advice);
+	}
+	
+	public void deleteAdvice(Advice advice) {
+		adviceMapper.deleteAdvice(advice);
+	}
 
 }

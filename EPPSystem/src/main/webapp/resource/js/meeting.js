@@ -93,7 +93,7 @@ $(document).ready(function() {
 		}, {
 			"bVisible" : true,
 			"render" : function(data, type, full, meta) {
-				return "<button>办理报告</button>&nbsp<button>下载</button>";
+				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"&ms="+ full.msId +"'><button>办理报告</button></a><button onclick='deleteAdvice("+full.daId+")'>删除</button>";
 			},
 			"sWidth" : "300"
 		} ],
@@ -122,5 +122,20 @@ function changeStatus(value) {
 		$("#assignedStatus2").hide();
 	} else if(value == 2) {
 		$("#assignedStatus2").show();
+	}
+}
+function deleteAdvice(daId) {
+	if(confirm("确定删除本条建议吗?")) {
+		$.ajax({
+			type : "post",
+			url : contextPath + "/advice/deleteAdvice.do",
+			data : {daId:daId},
+			success : function(result) {
+				if(result == "success") {
+					alert("删除成功");
+				}
+				zTable.ajax.reload();
+			}
+		});
 	}
 }

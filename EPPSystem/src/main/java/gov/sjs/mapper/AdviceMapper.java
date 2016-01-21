@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 public interface AdviceMapper {
@@ -39,7 +41,15 @@ public interface AdviceMapper {
 			+ "LED_DEPUTY,DA_DEPUTY,ASSIGNED_STATUS,HOST_UNIT,DA_DEPUTATION,DA_CONTENT,ASSIGNED_REPORT) "
 			+ "VALUES(#{advice.msId},#{advice.mtId},#{advice.msType},#{advice.daSubject},#{advice.ledDeputy}"
 			+ ",#{advice.daDeputy},#{advice.assignedStatus},#{advice.hostUnit},#{advice.daDeputation},#{advice.daContent},'')")
-	public int addAdvice(@Param("advice")Advice advice);
+	public void addAdvice(@Param("advice")Advice advice);
+	
+	@Update("UPDATE deputy_advise_info SET MS_ID=#{advice.msId},MT_ID=#{advice.mtId},MS_TYPE=#{advice.msType},DA_SUBJECT=#{advice.daSubject},"
+			+ "LED_DEPUTY=#{advice.ledDeputy},DA_DEPUTY=#{advice.daDeputy},ASSIGNED_STATUS=#{advice.assignedStatus},HOST_UNIT=#{advice.hostUnit},"
+			+ "DA_DEPUTATION=#{advice.daDeputation},ASSIGNED_REPORT=#{advice.assignedReport} WHERE DA_ID=#{advice.daId}")
+	public void updateAdvice(@Param("advice")Advice advice);
+	
+	@Delete("DELETE FROM deputy_advise_info WHERE DA_ID=#{advice.daId}")
+	public void deleteAdvice(@Param("advice")Advice advice);
 	
 	class AdviceProvider {
 		public String queryAdviceByCondition(Map<String, Object> params) {

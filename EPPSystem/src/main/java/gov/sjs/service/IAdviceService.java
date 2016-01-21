@@ -11,4 +11,8 @@ public interface IAdviceService {
 	public int getAdviceCountByCondition(Advice advice);
 	
 	public void addAdvice(Advice advice);
+	
+	public void updateAdvice(Advice advice);
+	
+	public void deleteAdvice(Advice advice);
 }

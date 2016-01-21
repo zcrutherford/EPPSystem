@@ -9,8 +9,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/common/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
+	var initAdviceContext;
+	var initMs;
+	var initMt;
 	$(document).ready(function(){
+		$("#msId").change(function(){
+			createMtOption();
+		});
 		fillMs();
+		fillMt();
 		fillText();
 	});
 	function fillMs() {
@@ -19,7 +26,10 @@
 			url : contextPath + "/meeting/getMs.do",
 			dataType : "json",
 			success : function(result) {
-				$("#msId").append("<option value="+result.msId+">"+result.sessionName+"</option>");
+				initMs = result;
+				for(var i=0;i<result.length;i++) {
+					$("#msId").append("<option value='"+ result[i].msId +"'>" + result[i].sessionName + "</option>");
+				}
 			}
 		});
 	}
@@ -30,7 +40,10 @@
 			data : {ms:$("#ms").val()},
 			dataType : "json",
 			success : function(result) {
-				$("#mtId").append("<option value="+result.mtId+">"+result.meetingName+"</option>");
+				initMt = result;
+				for(var i=0;i<result.length;i++) {
+					$("#mtId").append("<option value='"+ result[i].mtId +"'>" + result[i].meetingName + "</option>");
+				}
 			}
 		});
 	}
@@ -41,6 +54,7 @@
 			data : {daId:$("#daId").val()},
 			dataType : "json",
 			success : function(result) {
+				initAdviceContext = result;
 				$("#daSubject").val(result.daSubject);
 				if(result.assignedStatus == "3" || result.assignedStatus == "4" || result.assignedStatus == "5") {
 					$("#assignedStatus option[value=2]").attr("selected","selected");
@@ -61,6 +75,26 @@
 			}
 		});
 	}
+	function createMtOption() {
+		if($("#msId").val == "noSelected") {
+			$("#mtId").html("");
+			$("#mtId").append("<option value=''>请选择</option>");
+		} else {
+			$.ajax({
+				type:"post",
+				url:contextPath+"/meeting/getMtByCondition.do",
+				data:{ms:$("#msId").val()},
+				dataType:"json",
+				success:function(result){
+					$("#mtId").html("");
+					$("#mtId").append("<option value=''>请选择</option>");
+					for(var i=0;i<result.length;i++) {
+						$("#mtId").append("<option value='"+ result[i].mtId +"'>" + result[i].meetingName + "</option>");
+					}
+				}
+			});
+		}
+	}
 	function changeStatus(value) {
 		if(value == 0) {
 			$("#assignedStatus2").hide();
@@ -69,6 +103,92 @@
 		} else if(value == 2) {
 			$("#assignedStatus2").show();
 		}
+	}
+	function update() {
+		if($("#daSubject").val() == "") {
+			alert("题目不能为空!");
+			return;
+		}
+		if($("#msId").val() == "noSelected") {
+			alert("界次不能为空!");
+			return;
+		}
+		if($("#mtId").val() == "") {
+			alert("界次不能为空!");
+			return;
+		}
+		if($("#ledDeputy").val() == "") {
+			alert("领衔代表不能为空!");
+			return;
+		}
+		if($("#daContent").val() == "") {
+			alert("建议内容不能为空!");
+			return;
+		}
+		
+		var assignedStatus = $("#assignedStatus").val();
+		if(assignedStatus == 2) {
+			assignedStatus = $("#assignedStatus2").val();
+		}
+		$.ajax({
+			type:"post",
+			url:contextPath+"/advice/updateAdvice.do",
+			data:{
+				daId:$("#daId").val(),
+				daSubject:$("#daSubject").val(),
+				msId:$("#msId").val(),
+				mtId:$("#mtId").val(),
+				msType:$("#msType").val(),
+				ledDeputy:$("#ledDeputy").val(),
+				daDeputy:$("#daDeputy").val(),
+				hostUnit:$("#hostUnit").val(),
+				daDeputation:$("#daDeputation").val(),
+				assignedStatus:assignedStatus,
+				daContent:$("#daContent").val(),
+				assignedReport:$("#assignedReport").val()
+				},
+			success:function(result) {
+				if(result == "success") {
+					alert("添加成功!");
+					window.location.href=contextPath+"/meeting/gotoMeeting.do?ms="+$("#msId").val()+"&mstype="+$("#msType").val();
+				} else {
+					alert("添加失败!");
+				}
+			}
+				
+		});
+	}
+	function reset() {
+		$("#msId").html("");
+		$("#msId").append("<option value=''>请选择</option>");
+		$("#mtId").html("");
+		
+		$("#mtId").append("<option value=''>请选择</option>");
+		for(var i=0;i<result.length;i++) {
+			$("#msId").append("<option value='"+ initMs[i].msId +"'>" + initMs[i].sessionName + "</option>");
+		}
+		
+		for(var i=0;i<result.length;i++) {
+			$("#mtId").append("<option value='"+ initMt[i].mtId +"'>" + initMt[i].meetingName + "</option>");
+		}
+		
+		$("#daSubject").val(initAdviceContext.daSubject);
+		if(initAdviceContext.assignedStatus == "3" || initAdviceContext.assignedStatus == "4" || result.assignedStatus == "5") {
+			$("#assignedStatus option[value=2]").attr("selected","selected");
+			$("#assignedStatus2").show();
+			$("#assignedStatus2 option[value="+ initAdviceContext.assignedStatus +"]").attr("selected","selected");
+		} else {
+			$("#assignedStatus option[value="+ initAdviceContext.assignedStatus +"]").attr("selected","selected");
+		}
+		$("#msId option[value="+ initAdviceContext.msId +"]").attr("selected","selected");
+		$("#mtId option[value="+ initAdviceContext.mtId +"]").attr("selected","selected");
+		$("#msType option[value="+ initAdviceContext.msType +"]").attr("selected","selected");
+		$("#ledDeputy").val(initAdviceContext.ledDeputy);
+		$("#daDeputy").val(initAdviceContext.daDeputy);
+		$("#hostUnit option[value="+ initAdviceContext.hostUnit +"]").attr("selected","selected");
+		$("#daDeputation").val(initAdviceContext.daDeputation);
+		$("#daContent").val(initAdviceContext.daContent);
+		$("#assignedReport").val(initAdviceContext.assignedReport);
 	}
 </script>
 </head>
@@ -143,13 +263,20 @@
 	<tr>
 		<td width="15%">建议内容:</td>
 		<td colspan="3" style="text-align:left;">
-			<textarea id="daContent" rows="10" cols="80"></textarea>
+			<textarea id="daContent" rows="8" style="width:738px"></textarea>
 		</td>
 	</tr>
 	<tr>
 		<td width="15%">办理报告</td>
 		<td colspan="3" style="text-align:left;">
-			<textarea id="assignedReport" rows="10" cols="80"></textarea>
+			<textarea id="assignedReport" rows="8" style="width:738px"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<button onclick="update()">提交</button>
+			<a href="#" onClick="javascript :history.back(-1);"><button>返回</button></a>
+			<button onclick="reset()">清空</button>
 		</td>
 	</tr>
 </table>

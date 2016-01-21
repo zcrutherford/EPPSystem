@@ -50,6 +50,20 @@ public class AdviceController {
 		return "success";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/updateAdvice.do")
+	public String updateAdvice(Advice advice) {
+		iadviceService.updateAdvice(advice);
+		return "success";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteAdvice.do")
+	public String deleteAdvice(Advice advice) {
+		iadviceService.deleteAdvice(advice);
+		return "success";
+	}
+	
 	@RequestMapping("/gotoNewAdvicePage.do")
 	public String gotoNewAdvicePage(HttpServletRequest request) {
 		return "newAdvice";
