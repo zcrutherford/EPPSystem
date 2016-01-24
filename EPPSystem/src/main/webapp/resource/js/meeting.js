@@ -50,7 +50,7 @@ $(document).ready(function() {
 			"bVisible" : true,
 			"mData" : "daSubject",
 			"render" : function(data, type, full, meta) {
-				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"&ms="+ full.msId +"'>" + data;
+				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"&ms="+ full.msId +"&editable=false'>" + data;
 			},
 			"sWidth" : "300"
 		}, {
@@ -93,7 +93,9 @@ $(document).ready(function() {
 		}, {
 			"bVisible" : true,
 			"render" : function(data, type, full, meta) {
-				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"&ms="+ full.msId +"'><button>办理报告</button></a><button onclick='deleteAdvice("+full.daId+")'>删除</button>";
+				return "<a href='"+contextPath+"/advice/gotoAdviceManagePage.do?daId="+ full.daId +"&ms="+ full.msId +"&editable=true'><button>办理报告</button></a>" +
+						"<a href='#'><button onclick='deleteAdvice("+full.daId+")'>删除</button></a>" +
+						"<a href='#'><button>下载</button></a>";
 			},
 			"sWidth" : "300"
 		} ],

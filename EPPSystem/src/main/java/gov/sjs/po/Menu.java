@@ -15,6 +15,14 @@ public class Menu {
 	private String url;
 	private String target = "myframe";
 	
+	public Menu(){}
+	
+	public Menu(String parent,String name,String url){
+		this.parent = parent;
+		this.name = name;
+		this.url = url;
+	}
+	
 	public String getId() {
 		return id;
 	}

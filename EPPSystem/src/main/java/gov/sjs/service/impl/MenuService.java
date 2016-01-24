@@ -24,4 +24,11 @@ public class MenuService implements IMenuService {
 		return menuMapper.getAllMenu();
 	}
 
+	public void addMenu(Menu menu) {
+		menuMapper.addMenu(menu);
+	}
+	
+	public Menu getMenu(Menu menu) {
+		return menuMapper.getMenu(menu);
+	}
 }

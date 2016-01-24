@@ -23,5 +23,24 @@ public class MeetingService implements IMeetingService {
 	public List<MeetingSession> getMeetingSession() {
 		return meetingMapper.getMeetingSession();
 	}
+	
+	public List<MeetingTimes> getMeetingTimes(MeetingTimes meeting,int displayStart,int displayLength) {
+		return meetingMapper.getMeetingTimes(meeting,displayStart,displayLength);
+	}
+	
+	public int getMeetingTimesCount(MeetingTimes meeting) {
+		return meetingMapper.getMeetingTimesCount(meeting);
+	}
 
+	public void deleteMeetingTime(String mtId) {
+		meetingMapper.deleteMeetingTime(mtId);
+	}
+	
+	public void addMs(MeetingSession meeting) {
+		meetingMapper.addMs(meeting);
+	}
+	
+	public void addMt(MeetingTimes meeting) {
+		meetingMapper.addMt(meeting);
+	}
 }

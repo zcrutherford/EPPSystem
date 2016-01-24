@@ -16,10 +16,28 @@
 		$("#msId").change(function(){
 			createMtOption();
 		});
+		if($("#editable").val() == "false") {
+			disableAllText();
+		}
 		fillMs();
 		fillMt();
 		fillText();
 	});
+	function disableAllText(){
+		$("#buttonTr").hide();
+		$("#daSubject").attr("disabled","disabled");
+		$("#msId").attr("disabled","disabled");
+		$("#mtId").attr("disabled","disabled");
+		$("#msType").attr("disabled","disabled");
+		$("#assignedStatus").attr("disabled","disabled");
+		$("#assignedStatus2").attr("disabled","disabled");
+		$("#ledDeputy").attr("disabled","disabled");
+		$("#daDeputy").attr("disabled","disabled");
+		$("#hostUnit").attr("disabled","disabled");
+		$("#daDeputation").attr("disabled","disabled");
+		$("#daContent").attr("disabled","disabled");
+		$("#assignedReport").attr("disabled","disabled");
+	}
 	function fillMs() {
 		$.ajax({
 			type : "post",
@@ -149,10 +167,10 @@
 				},
 			success:function(result) {
 				if(result == "success") {
-					alert("添加成功!");
+					alert("办理修改成功!");
 					window.location.href=contextPath+"/meeting/gotoMeeting.do?ms="+$("#msId").val()+"&mstype="+$("#msType").val();
 				} else {
-					alert("添加失败!");
+					alert("办理修改失败!");
 				}
 			}
 				
@@ -195,6 +213,7 @@
 <body>
 <input id="daId" style="display:none;" value="${daId }"/>
 <input id="ms" style="display:none;" value="${ms }"/>
+<input id="editable" style="display:none;" value="${editable }"/>
 <table class="table11" style="width:1170px">
 	<tr height="20px">
 		<th colspan="4">建议管理</th>
@@ -272,7 +291,7 @@
 			<textarea id="assignedReport" rows="8" style="width:738px"></textarea>
 		</td>
 	</tr>
-	<tr>
+	<tr id="buttonTr">
 		<td colspan="4">
 			<button onclick="update()">提交</button>
 			<a href="#" onClick="javascript :history.back(-1);"><button>返回</button></a>
